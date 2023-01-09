@@ -1,0 +1,12 @@
+Question3: what are the key things you would consider when creating/consuming an API to ensure that is secure and reliable?
+Answer-
+       First I would like to give security to this application by providing authentification of user, authorization to the 
+       user what kind of task he or she can do while using this application, I would like to give spring security for users
+       and admin.
+
+       Second I would like to give validations while creating the application for the user so that authentication process     
+       will become more reliable.
+
+       Third I would like to Exception Handling to this application, Exception may arises when user tries to enter invalid 
+       paramenter like undefined parameters.I will create seprated class for Exception that may arises , like EntryException, 
+       CategoryNotFoundException, InvalidEntriesException etc;
