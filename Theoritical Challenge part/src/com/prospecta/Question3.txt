@@ -1,0 +1,10 @@
+How might user break the code?
+Answer-
+       1.A user might break the code if they provide input that is not in the expected format 
+       Example- if the input is not a valid CSV file.
+       
+       2.User might also break the code by providing formulas that are too complex or use variables that are not 
+         defined. 
+         
+       To prevent these types of errors, I would include input validation and error handling in the program.
+       

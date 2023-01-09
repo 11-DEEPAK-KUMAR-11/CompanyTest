@@ -1,0 +1,7 @@
+How will you tackle the challenge above?
+Answer-
+       I would first read the CSV input file line by line and split each line into individual cells by using BufferReader. Then, 
+       I would iterate through each cell of the row and check if it is a value or a formula. If it is a value, I would simply add it to 
+       the output CSV file. 
+       If it is a formula, I would parse the formula to extract the variables and perform the calculation using the 
+       appropriate formulas. after getting the value form that formula I simply add to the output CSV file.

@@ -1,0 +1,14 @@
+What type of errors you would you check for?
+Answer-
+      Some errors that I would check in the program is 
+
+      1.Syntax errors in the formulas this might be possible that it will arises
+        Example- using an undefined variable, mismatched parentheses.
+        
+      2.Circular references
+        it is possible that while calculating the value from formula same column may be present in some cell
+        which cell value has to be calculate.
+        Example- a formula that refers to itself
+        
+      3.Division by zero errors 
+        Example- dividing by a cell that contains the value 0 case can arises
