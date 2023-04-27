@@ -11,31 +11,30 @@ import com.bankApp.repository.AccountRepository;
 import com.bankApp.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
-@Service
-public class CreditService {
 
-	@Autowired
-    private AccountRepository accountRepository;
-	
-	@Autowired
-    private UserRepository userRepository;
-    
-	 @Transactional
-	    public void credit(Long userId, BigDecimal amount) {
-		 
+@Service
+public class DebitService {
+
+	    @Autowired
+	    private AccountRepository accountRepository;
+	    
+	    @Autowired
+	    private UserRepository userRepository;
+	    
+	    @Transactional
+	    public void debit(Long userId, BigDecimal amount) {
+	    	
 	        User user = userRepository.findById(userId).orElseThrow();
 	        
 	        Account account = user.getAccount();
 	        
-	        BigDecimal newBalance = account.getBalance().add(amount);
+	        BigDecimal newBalance = account.getBalance().subtract(amount);
 	        
-	        BigDecimal limit = new BigDecimal("10000000");
-
-	        if (newBalance.compareTo(limit) > 0) {
+	        if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
 	        	
-	            throw new RuntimeException("Account balance cannot go beyond 10 million");
+	            throw new RuntimeException("Account balance cannot go below 0");
+	            
 	        }
-	        
 	        account.setBalance(newBalance);
 	        accountRepository.save(account);
 	    }
