@@ -21,53 +21,42 @@ import com.bankApp.service.UserService;
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
-	
-    @Autowired
-    private CreditService creditService;
-    
-    @Autowired
-    private DebitService debitService;
-    
-    @Autowired
-    private UserService uService;
-    
-    @Autowired
-    private AccountService aService;
-    
-    @PostMapping("/account")
-    public ResponseEntity<Account> addAccount(@RequestBody Account account) {
-    	
-    	Account addedAccount=aService.addAccount(account);
-       
-        
-        return new ResponseEntity<>(addedAccount, HttpStatus.OK);
-    }
-    
-    @PostMapping("/user")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-    	
-    	User addedUser=uService.addUser(user);
-       
-        
-        return new ResponseEntity<>(addedUser, HttpStatus.OK);
-    }
-    
-    @PostMapping("/credit")
-    public ResponseEntity<String> credit(@RequestParam Long userId, @RequestParam BigDecimal amount) {
-    	
-        creditService.credit(userId, amount);
-        String msg="Amount Rs."+amount+" Credited to user Id "+userId;
-        
-        return new ResponseEntity<>(msg, HttpStatus.OK);
-    }
-    
-    @PostMapping("/debit")
-    public ResponseEntity<String> debit(@RequestParam Long userId, @RequestParam BigDecimal amount) {
-    	
-        debitService.debit(userId, amount);
-        String msg="Amount Rs."+amount+" Debited from user Id "+userId;
-        
-        return new ResponseEntity<>(msg, HttpStatus.OK);
-    }
-}
 
+	@Autowired
+	private CreditService creditService;
+
+	@Autowired
+	private DebitService debitService;
+
+	@Autowired
+	private AccountService aService;
+
+	// Add account with users handler
+	@PostMapping("/account")
+	public ResponseEntity<Account> addAccount(@RequestBody Account account) {
+
+		Account addedAccount = aService.addAccount(account);
+
+		return new ResponseEntity<>(addedAccount, HttpStatus.OK);
+	}
+
+	// Credit amount from account handler
+	@PostMapping("/credit")
+	public ResponseEntity<String> credit(@RequestParam Long userId, @RequestParam BigDecimal amount) {
+
+		creditService.credit(userId, amount);
+		String msg = "Amount Rs." + amount + " Credited to user Id " + userId;
+
+		return new ResponseEntity<>(msg, HttpStatus.OK);
+	}
+
+	// Debit amount from account handler
+	@PostMapping("/debit")
+	public ResponseEntity<String> debit(@RequestParam Long userId, @RequestParam BigDecimal amount) {
+
+		debitService.debit(userId, amount);
+		String msg = "Amount Rs." + amount + " Debited from user Id " + userId;
+
+		return new ResponseEntity<>(msg, HttpStatus.OK);
+	}
+}
