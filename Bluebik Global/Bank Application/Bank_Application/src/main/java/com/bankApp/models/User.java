@@ -1,5 +1,7 @@
 package com.bankApp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,9 +13,13 @@ public class User {
 	    @Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private Long id;
+	    
 	    private String name;
+	    
 	    @ManyToOne
+	    @JsonIgnore
 	    private Account account;
+	    
 		public User() {
 			super();
 			// TODO Auto-generated constructor stub
