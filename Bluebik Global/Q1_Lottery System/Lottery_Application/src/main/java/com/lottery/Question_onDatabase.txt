@@ -1,0 +1,18 @@
+
+
+Question-Which Storage will you use for this scenario in the Winner service?
+         Storage can be an inbuilt collection(List, Map, Set, Array etc) or a database.
+
+Answer- Based on the scenario and requirements of the Winner service, I used a MySQL database for storage. 
+
+		MySQL is a reliable and widely used relational database management system that can handle large amounts of data, 
+		while providing fast and efficient retrieval and storage. It also offers various features for data management and analysis, 
+		such as indexing, sorting, and querying.
+		
+		Using a database provides several advantages over using inbuilt collections such as List, Map, Set, or Array. 
+		Databases allow for efficient and scalable data storage, as well as the ability to easily query and manipulate 
+		large datasets. Additionally, databases provide data persistence, which means that data can be stored permanently 
+		and accessed even after the application or service is shut down.
+		
+		Overall, using a MySQL database would be the best choice for the Winner service, as it provides a reliable 
+		and efficient way to store and manage data.
