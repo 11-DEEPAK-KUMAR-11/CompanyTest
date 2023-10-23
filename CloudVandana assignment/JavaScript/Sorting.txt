@@ -1,0 +1,16 @@
+function sortArrayDescending(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] < arr[j]) {
+                const temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    return arr;
+}
+
+const inputArray = [5, 2, 7, 1, 4, 3];
+const sortedArray = sortArrayDescending(inputArray);
+console.log(sortedArray); // Output: [7, 5, 4, 3, 2, 1]

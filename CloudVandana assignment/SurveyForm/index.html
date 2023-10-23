@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survey Form</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script>
+        function submitForm() {
+            
+            // Retrieve form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const dob = document.getElementById('dob').value;
+            const country = document.getElementById('country').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobileNumber = document.getElementById('mobileNumber').value;
+
+            // Display values in a popup
+            const popupMessage = `First Name: ${firstName}\nLast Name: ${lastName}\nDate of Birth: ${dob}\nCountry: ${country}
+                \nGender: ${gender ? gender.value : 'N/A'}\nProfession: ${profession}\nEmail: ${email}\nMobile Number: ${mobileNumber}`;
+            alert(popupMessage);
+
+            // Reset form values
+            document.getElementById('surveyForm').reset();
+        }
+    </script>
+</head>
+<body>
+    <form id="surveyForm">
+        First Name: <input type="text" id="firstName" required><br><br>
+        Last Name: <input type="text" id="lastName" required><br><br>
+        Date of Birth: <input type="date" id="dob" required><br><br>
+        Country:
+        <select id="country" required>
+            <option value="USA">INDIA</option>
+            <option value="UK">UK</option>
+            <option value="Canada">Canada</option>
+            <option value="Australia">Australia</option>
+        </select><br><br>
+        Gender:
+        <input type="checkbox" name="gender" value="Male"> Male
+        <input type="checkbox" name="gender" value="Female"> Female
+        <input type="checkbox" name="gender" value="Other"> Other<br><br>
+        Profession: <input type="text" id="profession" required><br><br>
+        Email: <input type="email" id="email" required><br><br>
+        Mobile Number: <input type="text" id="mobileNumber" required><br><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+</body>
+</html>
