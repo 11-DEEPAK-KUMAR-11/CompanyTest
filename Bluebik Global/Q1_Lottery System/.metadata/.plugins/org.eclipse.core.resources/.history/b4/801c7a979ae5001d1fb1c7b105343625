@@ -1,0 +1,5 @@
+package com.lottery.controller;
+
+public class WinningNumberController {
+
+}

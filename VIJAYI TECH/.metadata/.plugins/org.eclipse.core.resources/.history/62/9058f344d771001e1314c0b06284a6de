@@ -1,0 +1,5 @@
+package com.vijayi.entities;
+
+public class CommentRequest {
+
+}

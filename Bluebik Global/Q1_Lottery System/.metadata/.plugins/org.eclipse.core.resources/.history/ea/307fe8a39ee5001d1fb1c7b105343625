@@ -1,0 +1,36 @@
+package com.lottery.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lottery.model.WinningNumber;
+import com.lottery.repository.WinningNumberRepository;
+
+@Service
+public class WinningNumberService {
+	
+    @Autowired
+    private WinningNumberRepository winningNumberRepository;
+
+    public void saveWinningNumbers(List<Integer> winningNumbers) {
+    	
+        for (Integer winningNumber : winningNumbers) {
+        	
+            WinningNumber existingWinningNumber = winningNumberRepository.findByWinningNumber(winningNumber);
+            
+            if (existingWinningNumber == null) {
+            	
+                WinningNumber newWinningNumber = new WinningNumber(winningNumber);
+                winningNumberRepository.save(newWinningNumber);
+            }
+        }
+    }
+
+    public boolean isWinningNumber(int number) {
+        WinningNumber winningNumber = winningNumberRepository.findByWinningNumber(number);
+        return (winningNumber != null);
+    }
+}
+

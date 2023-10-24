@@ -1,0 +1,88 @@
+package com.vijayi.services;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.vijayi.entities.Comment;
+import com.vijayi.entities.User;
+import com.vijayi.repositories.CommentRepository;
+import com.vijayi.repositories.UserRepository;
+
+import jakarta.transaction.Transactional;
+@Service
+public class CommentServiceImpl implements CommentService {
+
+	@Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private CommentRepository commentRepository;
+	
+	@Override
+	public void addComment(String commentFrom, String commentTo, String message) {
+	    // Determine sender and receiver based on commentFrom and commentTo
+	    String sender, receiver;
+	    if (commentFrom.equals(commentTo)) {
+	        // If commentFrom and commentTo are the same, assign both as sender and receiver
+	        sender = commentFrom;
+	        receiver = commentTo;
+	    } else {
+	        // Otherwise, set the appropriate sender and receiver
+	        sender = commentFrom;
+	        receiver = commentTo;
+	    }
+
+	    User userTo = userRepository.findByCommentTo(receiver);
+	    if (userTo == null) {
+	        userTo = new User();
+	        userTo.setCommentFrom(sender);
+	        userTo.setCommentTo(receiver);
+	        userRepository.save(userTo);
+	    }
+
+	    User userFrom = userRepository.findByCommentFrom(sender); // Fetch the user using commentFrom
+
+	    // No need to create a new user entry for sender in this case
+
+	    Comment comment = new Comment();
+	    comment.setMessage(message);
+	    comment.setCommentDateTime(LocalDateTime.now());
+	    comment.setPostedByUser(userFrom);
+	    commentRepository.save(comment);
+
+	    // Create a reverse comment for bidirectional commenting only if sender and receiver are different
+	    if (!sender.equals(receiver)) {
+	        User reverseUser = userRepository.findByCommentFrom(receiver); // Fetch the reverse user using commentFrom
+	        if (reverseUser == null) {
+	            reverseUser = new User();
+	            reverseUser.setCommentFrom(receiver);
+	            reverseUser.setCommentTo(sender);
+	            userRepository.save(reverseUser);
+	        }
+
+	        Comment reverseComment = new Comment();
+	        reverseComment.setMessage(message);
+	        reverseComment.setCommentDateTime(LocalDateTime.now());
+	        reverseComment.setPostedByUser(reverseUser);
+	        commentRepository.save(reverseComment);
+	    }
+	}
+
+
+
+
+	@Override
+	public List<Comment> getComments(String commentTo) {
+		
+		User user = userRepository.findByCommentTo(commentTo);
+        if (user != null) {
+            return commentRepository.findByPostedByUser(user);
+        }
+        return Collections.emptyList();
+	}
+
+}

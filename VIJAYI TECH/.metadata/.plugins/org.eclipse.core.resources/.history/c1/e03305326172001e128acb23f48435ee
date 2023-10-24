@@ -1,0 +1,13 @@
+package com.vijayi.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.vijayi.entities.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+	
+    User findByCommentTo(String commentTo);
+}
+
+
+

@@ -1,0 +1,64 @@
+package com.vijayi.services;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.vijayi.entities.Comment;
+import com.vijayi.entities.User;
+import com.vijayi.repositories.CommentRepository;
+import com.vijayi.repositories.UserRepository;
+
+import jakarta.transaction.Transactional;
+@Service
+public class CommentServiceImpl implements CommentService {
+
+	@Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private CommentRepository commentRepository;
+	
+	@Override
+	
+	public void addComment(String commentFrom, String commentTo, String message) {
+//	    User userTo = userRepository.findByCommentTo(commentTo);
+//
+//	    if (userTo == null) {
+//	        userTo = new User();
+//	        userTo.setCommentFrom(commentTo);
+//	        userTo.setCommentTo(commentTo);
+//	        userRepository.save(userTo);
+//	    }
+
+	    User userFrom = userRepository.findByCommentTo(commentFrom);
+
+	    if (userFrom == null) {
+	        userFrom = new User();
+	        userFrom.setCommentFrom(commentFrom);
+	        userFrom.setCommentTo(commentTo);
+	        userRepository.save(userFrom);
+	    }
+
+	    Comment comment = new Comment();
+	    comment.setMessage(message);
+	    comment.setCommentDateTime(LocalDateTime.now());
+	    comment.setPostedByUser(userFrom);
+	    commentRepository.save(comment);
+	}
+
+
+	@Override
+	public List<Comment> getComments(String commentTo) {
+		
+		User user = userRepository.findByCommentTo(commentTo);
+        if (user != null) {
+            return commentRepository.findByPostedByUser(user);
+        }
+        return Collections.emptyList();
+	}
+
+}

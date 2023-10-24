@@ -1,0 +1,5 @@
+package com.vijayi.repositories;
+
+public interface UserRepository {
+
+}
